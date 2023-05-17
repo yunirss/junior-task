@@ -1,0 +1,3 @@
+Apples, 3, 240
+Apples, 2, 160
+Pears, 3, 450
