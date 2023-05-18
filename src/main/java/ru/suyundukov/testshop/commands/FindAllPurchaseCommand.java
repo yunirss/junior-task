@@ -9,7 +9,7 @@ import ru.suyundukov.testshop.service.PurchaseService;
 @RequiredArgsConstructor
 public class FindAllPurchaseCommand implements Command {
     @Autowired
-    private PurchaseService purchaseService;
+    private final PurchaseService purchaseService;
 
     @Override
     public void execute() {

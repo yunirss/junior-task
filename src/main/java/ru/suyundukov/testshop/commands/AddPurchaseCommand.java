@@ -14,9 +14,9 @@ import java.util.Scanner;
 @RequiredArgsConstructor
 public class AddPurchaseCommand implements Command {
     @Autowired
-    private ProductService productService;
+    private final ProductService productService;
     @Autowired
-    private PurchaseService purchaseService;
+    private final PurchaseService purchaseService;
 
     @Override
     public void execute() {
@@ -52,6 +52,6 @@ public class AddPurchaseCommand implements Command {
         int total = product.getPrice() * quantity;
         System.out.println("Сумма покупки : " + total);
         purchaseService.savePurchaseInFile(purchase);
-        System.out.println("Покупка сохранена в файл");
+        System.out.println("Покупка сохранена в файл \"purchase_history.txt\"");
     }
 }

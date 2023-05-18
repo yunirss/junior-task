@@ -7,6 +7,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Класс - сущность , представляет покупку содержит в себе идентификатор, продукт и их количество
+ */
 @Entity
 @Table(name = "purchases")
 @NoArgsConstructor

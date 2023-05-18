@@ -12,13 +12,13 @@ import ru.suyundukov.testshop.commands.FindByCriteriaCommand;
 @RequiredArgsConstructor
 public class CommandExecutor {
     @Autowired
-    private AddPurchaseCommand addPurchaseCommand;
+    private final AddPurchaseCommand addPurchaseCommand;
     @Autowired
-    private ExitCommand exitCommand;
+    private final ExitCommand exitCommand;
     @Autowired
-    private FindByCriteriaCommand findByCriteriaCommand;
+    private final FindByCriteriaCommand findByCriteriaCommand;
     @Autowired
-    private FindAllPurchaseCommand findAllPurchaseCommand;
+    private final FindAllPurchaseCommand findAllPurchaseCommand;
 
     public void executeCommand(int command){
         switch (command) {

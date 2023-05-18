@@ -1,5 +1,7 @@
 package ru.suyundukov.testshop.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.suyundukov.testshop.entity.Purchase;
 import ru.suyundukov.testshop.repository.PurchaseRepository;
@@ -8,17 +10,17 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
- * Интерфейс, содержит методы для класса.
+ * Класс-сервис для покупок, реализует основную бизнес-логику. Инжектит бин "PurchaseRepository" и работает с ним.
  */
 @Service
+@RequiredArgsConstructor
 public class PurchaseService {
+    @Autowired
     private final PurchaseRepository purchaseRepository;
-
-    public PurchaseService(PurchaseRepository repository) {
-        this.purchaseRepository = repository;
-    }
 
     public void addPurchase(Purchase purchase) {
         purchaseRepository.save(purchase);
@@ -31,12 +33,27 @@ public class PurchaseService {
         List<Purchase> list = purchaseRepository.findAll();
         for (int i = 0; i < list.size(); i++) {
             System.out.println((i + 1) + ". " + list.get(i).getProduct().getName() + " , " +
-                    list.get(i).getQuantity() + " pieces.");//todo добавить сумму покупки
+                    list.get(i).getQuantity() + " pieces, " + "total: " +
+                    list.get(i).getQuantity() * list.get(i).getProduct().getPrice());
         }
     }
 
     public void searchPurchases(String criteria) {
-
+        List<Purchase> list = purchaseRepository.findAll();
+        if (criteria == null || criteria.isBlank()) {
+            System.out.println("Вы ввели пустую строку, пожалуйста введите название продукта.");
+        }
+        Pattern pattern = Pattern.compile(criteria, Pattern.CASE_INSENSITIVE);
+        for (int i = 0; i < list.size(); i++) {
+            String purchaseInfo = list.get(i).getProduct().getName();
+            if (purchaseInfo != null) {
+                Matcher matcher = pattern.matcher(purchaseInfo);
+                if (matcher.find()) {
+                    System.out.println((i + 1) + ". " + list.get(i).getProduct().getName() + " , " +
+                            list.get(i).getQuantity() + " pieces.");
+                }
+            }
+        }
     }
 
     public void savePurchaseInFile(Purchase purchase) {
