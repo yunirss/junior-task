@@ -1,0 +1,6 @@
+Apples, 3, 240
+Apples, 2, 160
+Pears, 3, 450
+Apples, 3, 240
+Bananas, 4, 400
+Oranges, 2, 260
